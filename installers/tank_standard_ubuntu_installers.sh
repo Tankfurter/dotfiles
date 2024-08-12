@@ -3,7 +3,7 @@
 # Script to install standard applications on Ubuntu
 
 # Array of packages to install
-PACKAGES=("tree" "net-tools" "slurm" "python3")
+PACKAGES=("tree" "net-tools" "slurm" "python3" "docker.io" "htop" "glances" "ncdu") 
 
 # Function to update and upgrade the system
 function update_system() {
