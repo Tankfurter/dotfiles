@@ -27,6 +27,11 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
+# Set version number and create a command to display it with the command bv for the version of bashrc 
+BASHRC_VERSION="1.0.0"
+alias bv="echo 'bashrc version: $BASHRC_VERSION'"
+
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -112,7 +117,6 @@ alias gr='git rev-parse --show-toplevel' # git root
 alias gs='git status'
 alias gt='git tag'
 alias gu='git pull' # gu = git update
-
 
 
 # Add an "alert" alias for long running commands.  Use like so:
