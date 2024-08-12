@@ -1,3 +1,11 @@
 # Tank's Dotfiles
 
-This is a holding spot for all my .files for use across systems 
+This is a combination of my default configurations organized int 
+
+
+## Root 
+Raw .files
+
+
+## installers
+Locaiton for installation scripts that I use to setup envyonments 

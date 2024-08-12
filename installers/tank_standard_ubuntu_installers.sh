@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Script to install standard applications on Ubuntu
+# Script to install categorized applications on Ubuntu
 
-# Array of packages to install
-PACKAGES=("tree" "net-tools" "slurm" "python3" "docker.io" "htop" "glances" "ncdu") 
+# Arrays of packages to install
+DEFAULT_PACKAGES=("tree" "net-tools" "htop" "glances" "ncdu")
+QOL_PACKAGES=("python3 "slurm"")  # Quality of Life packages (none currently, but can be added here)
+FULL_PACKAGES=("docker.io")  # Full setup packages
 
 # Function to update and upgrade the system
 function update_system() {
@@ -36,18 +38,19 @@ function install_package() {
     fi
 }
 
-# Main installation function
-function install_standard_apps() {
-    echo "Starting installation of standard applications..."
-
-    # Loop through the array of packages
+# Function to install a category of packages
+function install_packages() {
+    CATEGORY=$1
+    PACKAGES=("${!2}")
+    
+    echo "Starting installation of ${CATEGORY} packages..."
+    
     for PACKAGE in "${PACKAGES[@]}"; do
         install_package "$PACKAGE" || echo "Warning: $PACKAGE could not be installed."
     done
 
-    echo "Installation of standard applications complete."
-    # Output the list of packages that were just installed
-    echo "The following packages confirmed installed on the system:"
+    echo "Installation of ${CATEGORY} packages complete."
+    echo "The following ${CATEGORY} packages are confirmed installed on the system:"
     for PACKAGE in "${PACKAGES[@]}"; do
         if dpkg -l | grep -q "^ii\s*${PACKAGE}\s"; then
             echo " - $PACKAGE"
@@ -55,10 +58,41 @@ function install_standard_apps() {
     done
 }
 
+# Function to display the menu and get user choice
+function display_menu() {
+    echo "Select installation option:"
+    echo "1. Default"
+    echo "2. Quality of Life (includes Default)"
+    echo "3. Full (includes Default and Quality of Life)"
+    read -p "Enter your choice (1-3): " CHOICE
+    
+    case $CHOICE in
+        1)
+            echo "You chose Default."
+            install_packages "Default" DEFAULT_PACKAGES[@]
+            ;;
+        2)
+            echo "You chose Quality of Life."
+            install_packages "Default" DEFAULT_PACKAGES[@]
+            install_packages "Quality of Life" QOL_PACKAGES[@]
+            ;;
+        3)
+            echo "You chose Full."
+            install_packages "Default" DEFAULT_PACKAGES[@]
+            install_packages "Quality of Life" QOL_PACKAGES[@]
+            install_packages "Full" FULL_PACKAGES[@]
+            ;;
+        *)
+            echo "Invalid choice. Exiting."
+            exit 1
+            ;;
+    esac
+}
+
 # Main script execution
 function main() {
     update_system
-    install_standard_apps
+    display_menu
 }
 
 # Call the main function

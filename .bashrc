@@ -95,6 +95,26 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+
+# Git Aliases
+alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
+alias ga='git add . --all'
+alias gb='git branch'
+alias gc='git clone'
+alias gci='git commit -a'
+alias gco='git checkout'
+alias gd="git diff ':!*lock'"
+alias gdf='git diff' # git diff (full)
+alias gi='git init'
+alias gl='git log'
+alias gp='git push origin HEAD'
+alias gr='git rev-parse --show-toplevel' # git root
+alias gs='git status'
+alias gt='git tag'
+alias gu='git pull' # gu = git update
+
+
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
