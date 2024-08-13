@@ -28,7 +28,7 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # Set version number and create a command to display it with the command bv for the version of bashrc 
-BASHRC_VERSION="1.0.0"
+BASHRC_VERSION="1.0.1"
 alias bv="echo 'bashrc version: $BASHRC_VERSION'"
 
 
@@ -117,6 +117,30 @@ alias gr='git rev-parse --show-toplevel' # git root
 alias gs='git status'
 alias gt='git tag'
 alias gu='git pull' # gu = git update
+
+#Extract Logic 
+
+extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1    ;;
+            *.tar.gz)    tar xzf $1    ;;
+            *.bz2)       bunzip2 $1    ;;
+            *.rar)       unrar x $1    ;;
+            *.gz)        gunzip $1     ;;
+            *.tar)       tar xf $1     ;;
+            *.tbz2)      tar xjf $1    ;;
+            *.tgz)       tar xzf $1    ;;
+            *.zip)       unzip $1      ;;
+            *.Z)         uncompress $1 ;;
+            *.7z)        7z x $1       ;;
+            *)           echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
 
 
 # Add an "alert" alias for long running commands.  Use like so:
